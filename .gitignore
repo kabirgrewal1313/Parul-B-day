@@ -1,0 +1,11 @@
+node_modules
+.next
+.venv
+backend/parul_story.sqlite3
+backend/uploads/*
+!backend/uploads/.gitkeep
+.env
+.env.local
+.env.*.local
+npm-debug.log*
+.DS_Store
