@@ -29,7 +29,7 @@ export function AdminDashboard() {
       setItems(data);
       setStatus(data.length ? "Queue loaded." : "No submissions yet.");
     } catch {
-      setStatus("Backend is offline or Supabase is not configured. Start FastAPI and check .env.local.");
+      setStatus("API is unavailable or Supabase env vars are not configured.");
     }
   };
 

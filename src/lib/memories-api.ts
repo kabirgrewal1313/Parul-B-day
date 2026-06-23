@@ -24,7 +24,7 @@ export type FriendSummary = {
   role: string;
 };
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "/api";
 
 export { API_BASE };
 export const MEMORY_FALLBACK_AVATAR = "/images/anime-placeholder.png";

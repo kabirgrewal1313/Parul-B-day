@@ -63,7 +63,7 @@ export function ContributeForm() {
         {status === "sending" ? "Sending..." : "Submit memory"}
       </button>
       {status === "sent" ? <p className="text-sm text-ink/64">Submitted for approval.</p> : null}
-      {status === "error" ? <p className="text-sm text-ink/64">Could not submit. Check that the backend is running and Supabase is configured in .env.local.</p> : null}
+      {status === "error" ? <p className="text-sm text-ink/64">Could not submit. Check that the API is deployed and Supabase env vars are configured.</p> : null}
     </form>
   );
 }
