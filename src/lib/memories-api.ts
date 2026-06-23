@@ -24,7 +24,17 @@ export type FriendSummary = {
   role: string;
 };
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "/api";
+function getApiBase() {
+  const configuredApiBase = process.env.NEXT_PUBLIC_API_BASE?.trim();
+
+  if (!configuredApiBase || configuredApiBase.includes("localhost") || configuredApiBase.includes("127.0.0.1")) {
+    return "/api";
+  }
+
+  return configuredApiBase.replace(/\/$/, "");
+}
+
+const API_BASE = getApiBase();
 
 export { API_BASE };
 export const MEMORY_FALLBACK_AVATAR = "/images/anime-placeholder.png";

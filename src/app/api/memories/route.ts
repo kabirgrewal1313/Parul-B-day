@@ -33,10 +33,20 @@ async function getImageUrl(image: FormDataEntryValue | null) {
     };
   }
 
-  const storagePath = `uploads/memory-${Date.now()}-${crypto.randomUUID()}.${extension}`;
-  const imageUrl = await supabaseStorageUpload(config, storagePath, image);
+  try {
+    const storagePath = `uploads/memory-${Date.now()}-${crypto.randomUUID()}.${extension}`;
+    const imageUrl = await supabaseStorageUpload(config, storagePath, image);
 
-  return { error: null, imageUrl };
+    return { error: null, imageUrl };
+  } catch (error) {
+    return {
+      error: NextResponse.json(
+        { detail: error instanceof Error ? error.message : "Image upload failed." },
+        { status: 500 }
+      ),
+      imageUrl: null
+    };
+  }
 }
 
 export async function GET() {

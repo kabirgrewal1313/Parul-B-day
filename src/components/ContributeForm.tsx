@@ -6,12 +6,23 @@ import { API_BASE } from "@/lib/memories-api";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
+async function readApiError(response: Response) {
+  try {
+    const data = (await response.json()) as { detail?: unknown };
+    return typeof data.detail === "string" ? data.detail : "Submission failed.";
+  } catch {
+    return `Submission failed with status ${response.status}.`;
+  }
+}
+
 export function ContributeForm() {
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setStatus("sending");
+    setErrorMessage("");
     const form = event.currentTarget;
     const data = new FormData(form);
 
@@ -22,12 +33,13 @@ export function ContributeForm() {
       });
 
       if (!response.ok) {
-        throw new Error("Submission failed");
+        throw new Error(await readApiError(response));
       }
 
       form.reset();
       setStatus("sent");
-    } catch {
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Could not submit.");
       setStatus("error");
     }
   };
@@ -63,7 +75,7 @@ export function ContributeForm() {
         {status === "sending" ? "Sending..." : "Submit memory"}
       </button>
       {status === "sent" ? <p className="text-sm text-ink/64">Submitted for approval.</p> : null}
-      {status === "error" ? <p className="text-sm text-ink/64">Could not submit. Check that the API is deployed and Supabase env vars are configured.</p> : null}
+      {status === "error" ? <p className="text-sm text-ink/64">{errorMessage}</p> : null}
     </form>
   );
 }

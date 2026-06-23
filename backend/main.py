@@ -21,10 +21,24 @@ SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
 STORAGE_BUCKET = os.getenv("SUPABASE_STORAGE_BUCKET", "memory-images")
 
-cors_origins = ["http://localhost:3000", "http://127.0.0.1:3000"]
-frontend_url = os.getenv("FRONTEND_URL", "").strip()
-if frontend_url:
-    cors_origins.append(frontend_url)
+cors_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
+    "http://localhost:3002",
+    "http://127.0.0.1:3002",
+    "http://localhost:3003",
+    "http://127.0.0.1:3003",
+]
+frontend_urls = [
+    *os.getenv("FRONTEND_URL", "").split(","),
+    *os.getenv("FRONTEND_URLS", "").split(","),
+]
+for frontend_url in frontend_urls:
+    frontend_url = frontend_url.strip().rstrip("/")
+    if frontend_url and frontend_url not in cors_origins:
+        cors_origins.append(frontend_url)
 
 app = FastAPI(
     title="Parul's Story API",

@@ -118,7 +118,7 @@ The homepage no longer shows the top navigation menu, but these pages still exis
 
 ## Backend Notes
 
-The contribution and admin flows use a FastAPI backend backed by **Supabase** (PostgreSQL + Storage).
+The contribution and admin flows use Vercel serverless functions under `/api`, backed by **Supabase** (PostgreSQL + Storage). The old FastAPI app in `backend/main.py` is still available for separate local/API hosting, but it is not needed for the Vercel deployment.
 
 ### 1. Create a Supabase project
 
@@ -140,9 +140,30 @@ This creates the `memories` table, row-level security policies, and the `memory-
    - **Project URL** → `SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_URL`
    - **anon public** key → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - **service_role** key → `SUPABASE_SERVICE_ROLE_KEY` (keep this secret; backend only)
-3. Leave `NEXT_PUBLIC_API_BASE=http://localhost:8000` for local dev.
+3. Leave `NEXT_PUBLIC_API_BASE=/api` for Vercel and normal Next.js local dev.
 
-### 4. Install Python dependencies and run the API
+### 4. Run the Next.js app
+
+```bash
+npm install
+npm run dev
+```
+
+### 5. Verify everything works
+
+- `http://localhost:3000/api/health` should return `{"status":"ok","supabase":"configured","storageBucket":"memory-images"}`
+- `/contribute` submits to `POST /api/memories` (images go to Supabase Storage)
+- `/admin` loads `GET /api/admin/memories` and approves via `POST /api/admin/memories/{id}/approve`
+
+### Production On Vercel
+
+- Set `NEXT_PUBLIC_API_BASE=/api`, or leave it unset.
+- Set `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and `SUPABASE_STORAGE_BUCKET` in Vercel.
+- Redeploy after changing env vars.
+
+### Optional FastAPI Backend
+
+If you host `backend/main.py` separately, install Python dependencies and run:
 
 ```bash
 python3.12 -m venv .venv
@@ -151,29 +172,4 @@ pip install -r requirements.txt
 npm run backend
 ```
 
-Use Python 3.12 or 3.13 for the venv. Python 3.14 is not yet supported by all backend dependencies.
-
-Or directly:
-
-```bash
-uvicorn backend.main:app --reload --port 8000
-```
-
-### 5. Run the frontend
-
-```bash
-npm install
-npm run dev
-```
-
-### 6. Verify everything works
-
-- `http://localhost:8000/health` should return `{"status":"ok","supabase":"configured"}`
-- `/contribute` submits to `POST /memories` (images go to Supabase Storage)
-- `/admin` loads `GET /admin/memories` and approves via `POST /admin/memories/{id}/approve`
-
-### Production
-
-- Deploy the FastAPI app (Railway, Render, Fly.io, etc.) with the same Supabase env vars.
-- Set `FRONTEND_URL` to your deployed site URL for CORS.
-- Set `NEXT_PUBLIC_API_BASE` to your deployed API URL in the hosting provider's env settings.
+Then set `NEXT_PUBLIC_API_BASE` to that deployed FastAPI URL, and set `FRONTEND_URL` or comma-separated `FRONTEND_URLS` on the FastAPI host for CORS.
