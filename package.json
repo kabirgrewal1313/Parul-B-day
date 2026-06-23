@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "backend": ".venv/bin/uvicorn backend.main:app --reload --port 8000"
+    "lint": "next lint"
   },
   "dependencies": {
     "@react-three/fiber": "^9.0.0",

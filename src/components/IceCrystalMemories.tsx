@@ -25,7 +25,7 @@ export function IceCrystalMemories() {
         {loading ? (
           <p className="reveal text-ink/56">Loading memories...</p>
         ) : error ? (
-          <p className="reveal text-ink/56">Could not load memories. Make sure the backend is running.</p>
+          <p className="reveal text-ink/56">Could not load memories. Check the Vercel API and Supabase env vars.</p>
         ) : count === 0 ? (
           <p className="reveal text-ink/56">No approved memories yet. Check back after friends contribute.</p>
         ) : (

@@ -17,8 +17,22 @@ type SupabaseConfig = {
   url: string;
 };
 
+export function getMissingSupabaseEnv() {
+  const missing: string[] = [];
+
+  if (!process.env.SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL) {
+    missing.push("SUPABASE_URL or NEXT_PUBLIC_SUPABASE_URL");
+  }
+
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    missing.push("SUPABASE_SERVICE_ROLE_KEY");
+  }
+
+  return missing;
+}
+
 export function getSupabaseConfig(): SupabaseConfig | null {
-  const url = process.env.SUPABASE_URL?.replace(/\/$/, "");
+  const url = (process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL)?.replace(/\/$/, "");
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !serviceRoleKey) {
@@ -33,16 +47,34 @@ export function getSupabaseConfig(): SupabaseConfig | null {
 }
 
 export function missingSupabaseConfigResponse() {
+  const missing = getMissingSupabaseEnv();
+
   return NextResponse.json(
     {
-      detail: "Supabase is not configured. Add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in Vercel."
+      detail: `Supabase is not configured. Missing: ${missing.join(", ")}.`
     },
     { status: 503 }
   );
 }
 
+export async function readSupabaseError(response: Response) {
+  const text = await response.text();
+
+  if (!text) {
+    return `Supabase request failed with status ${response.status}.`;
+  }
+
+  try {
+    const data = JSON.parse(text) as { code?: string; details?: string; hint?: string; message?: string };
+    return [data.message, data.details, data.hint, data.code].filter(Boolean).join(" ");
+  } catch {
+    return text;
+  }
+}
+
 export async function supabaseRestFetch(config: SupabaseConfig, path: string, init?: RequestInit) {
   const headers = new Headers(init?.headers);
+  headers.set("accept", "application/json");
   headers.set("apikey", config.serviceRoleKey);
   headers.set("authorization", `Bearer ${config.serviceRoleKey}`);
 
@@ -72,7 +104,7 @@ export async function supabaseStorageUpload(config: SupabaseConfig, path: string
   });
 
   if (!response.ok) {
-    throw new Error(await response.text());
+    throw new Error(await readSupabaseError(response));
   }
 
   return `${config.url}/storage/v1/object/public/${config.storageBucket}/${path}`;

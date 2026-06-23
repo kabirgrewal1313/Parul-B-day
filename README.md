@@ -118,7 +118,7 @@ The homepage no longer shows the top navigation menu, but these pages still exis
 
 ## Backend Notes
 
-The contribution and admin flows use Vercel serverless functions under `/api`, backed by **Supabase** (PostgreSQL + Storage). The old FastAPI app in `backend/main.py` is still available for separate local/API hosting, but it is not needed for the Vercel deployment.
+The contribution and admin flows use Vercel serverless functions under `/api`, backed by **Supabase** (PostgreSQL + Storage).
 
 ### 1. Create a Supabase project
 
@@ -151,7 +151,7 @@ npm run dev
 
 ### 5. Verify everything works
 
-- `http://localhost:3000/api/health` should return `{"status":"ok","supabase":"configured","storageBucket":"memory-images"}`
+- `http://localhost:3000/api/health` should return `"status":"ok"` with database and storage marked reachable
 - `/contribute` submits to `POST /api/memories` (images go to Supabase Storage)
 - `/admin` loads `GET /api/admin/memories` and approves via `POST /api/admin/memories/{id}/approve`
 
@@ -160,16 +160,3 @@ npm run dev
 - Set `NEXT_PUBLIC_API_BASE=/api`, or leave it unset.
 - Set `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and `SUPABASE_STORAGE_BUCKET` in Vercel.
 - Redeploy after changing env vars.
-
-### Optional FastAPI Backend
-
-If you host `backend/main.py` separately, install Python dependencies and run:
-
-```bash
-python3.12 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-npm run backend
-```
-
-Then set `NEXT_PUBLIC_API_BASE` to that deployed FastAPI URL, and set `FRONTEND_URL` or comma-separated `FRONTEND_URLS` on the FastAPI host for CORS.

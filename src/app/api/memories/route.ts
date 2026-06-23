@@ -4,6 +4,7 @@ import {
   getSupabaseConfig,
   MemoryRow,
   missingSupabaseConfigResponse,
+  readSupabaseError,
   supabaseRestFetch,
   supabaseStorageUpload
 } from "@/lib/server/supabase-rest";
@@ -62,7 +63,7 @@ export async function GET() {
   );
 
   if (!response.ok) {
-    return NextResponse.json({ detail: await response.text() }, { status: response.status });
+    return NextResponse.json({ detail: await readSupabaseError(response) }, { status: response.status });
   }
 
   return NextResponse.json((await response.json()) as MemoryRow[]);
@@ -103,7 +104,7 @@ export async function POST(request: Request) {
   });
 
   if (!response.ok) {
-    return NextResponse.json({ detail: await response.text() }, { status: response.status });
+    return NextResponse.json({ detail: await readSupabaseError(response) }, { status: response.status });
   }
 
   const rows = (await response.json()) as MemoryRow[];

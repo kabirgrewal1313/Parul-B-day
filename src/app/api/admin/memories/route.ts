@@ -4,6 +4,7 @@ import {
   getSupabaseConfig,
   MemoryRow,
   missingSupabaseConfigResponse,
+  readSupabaseError,
   supabaseRestFetch
 } from "@/lib/server/supabase-rest";
 
@@ -19,7 +20,7 @@ export async function GET() {
   const response = await supabaseRestFetch(config, "/rest/v1/memories?select=*&order=created_at.desc");
 
   if (!response.ok) {
-    return NextResponse.json({ detail: await response.text() }, { status: response.status });
+    return NextResponse.json({ detail: await readSupabaseError(response) }, { status: response.status });
   }
 
   return NextResponse.json((await response.json()) as MemoryRow[]);

@@ -4,6 +4,7 @@ import {
   getSupabaseConfig,
   MemoryRow,
   missingSupabaseConfigResponse,
+  readSupabaseError,
   supabaseRestFetch
 } from "@/lib/server/supabase-rest";
 
@@ -32,7 +33,7 @@ export async function POST(_request: Request, context: { params: Promise<{ memor
   });
 
   if (!response.ok) {
-    return NextResponse.json({ detail: await response.text() }, { status: response.status });
+    return NextResponse.json({ detail: await readSupabaseError(response) }, { status: response.status });
   }
 
   const rows = (await response.json()) as MemoryRow[];

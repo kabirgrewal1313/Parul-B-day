@@ -11,7 +11,7 @@ export function FriendsDirectory() {
   }
 
   if (error) {
-    return <p className="text-ink/56">Could not load contributors. Make sure the backend is running.</p>;
+    return <p className="text-ink/56">Could not load contributors. Check the Vercel API and Supabase env vars.</p>;
   }
 
   if (count === 0) {

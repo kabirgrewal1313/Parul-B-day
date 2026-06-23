@@ -52,7 +52,7 @@ export function MemoryConstellation({ compact = false }: { compact?: boolean }) 
             <div className="grid h-full place-items-center text-sm text-white/56">Loading memories...</div>
           ) : error ? (
             <div className="grid h-full place-items-center px-6 text-center text-sm text-white/56">
-              Could not load memories. Make sure the backend is running.
+              Could not load memories. Check the Vercel API and Supabase env vars.
             </div>
           ) : count === 0 ? (
             <div className="grid h-full place-items-center px-6 text-center text-white/56">
