@@ -15,7 +15,9 @@ export function IceCrystalMemories() {
       <div className="chapter-inner">
         <div className="reveal mb-10 max-w-3xl">
           <p className="mb-4 text-sm uppercase text-ink/56">Ice Crystal Memory Chapter</p>
-          <h2 className="font-display text-6xl leading-none text-ink sm:text-8xl">Tap The Frozen Memories</h2>
+          <h2 className="break-words font-display text-5xl leading-none text-ink sm:text-7xl lg:text-8xl">
+            Tap The Frozen Memories
+          </h2>
           {!loading ? (
             <p className="mt-4 text-ink/56">
               {count} approved {count === 1 ? "memory" : "memories"} waiting to thaw
@@ -57,13 +59,13 @@ export function IceCrystalMemories() {
                       <MemoryImage
                         alt={memory.friend}
                         className="rounded-sm"
-                        maxHeightClass="max-h-80"
+                        maxHeightClass="max-h-[min(70vh,28rem)]"
                         src={memory.avatar}
                       />
                       <div>
                         <p className="text-xs uppercase text-ink/52">{memory.friend}</p>
-                        <h3 className="mt-2 font-display text-4xl">{memory.title}</h3>
-                        <p className="mt-4 leading-7 text-ink/72">{memory.message}</p>
+                        <h3 className="mt-2 break-words font-display text-4xl">{memory.title}</h3>
+                        <p className="mt-4 break-words leading-7 text-ink/72">{memory.message}</p>
                       </div>
                     </motion.div>
                   )}

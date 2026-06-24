@@ -47,7 +47,6 @@ export function MainPageAuthGate() {
         </label>
         <input
           autoComplete="off"
-          autoFocus
           className="mb-4 w-full rounded-[8px] border border-white/85 bg-white/76 px-4 py-3 text-center text-lg font-semibold text-ink outline-none shadow-inner transition placeholder:text-ink/32 focus:border-periwinkle focus:bg-white focus:ring-4 focus:ring-periwinkle/25"
           id="main-page-answer"
           name="answer"

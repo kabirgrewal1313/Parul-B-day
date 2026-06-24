@@ -7,7 +7,6 @@ import { IceCrystalMemories } from "@/components/IceCrystalMemories";
 import { IntroSequence } from "@/components/IntroSequence";
 import { LetterChapter } from "@/components/LetterChapter";
 import { MainPageAuthGate } from "@/components/MainPageAuthGate";
-import { MangaTransition } from "@/components/MangaTransition";
 import { MemoryConstellation } from "@/components/MemoryConstellation";
 import { MusicChapter } from "@/components/MusicChapter";
 import { ProfileChapter } from "@/components/ProfileChapter";
@@ -32,11 +31,9 @@ export default async function Home() {
       <IntroSequence />
       <HeroSplash />
       <ProfileChapter />
-      <MangaTransition title="Page Turn" subtitle="The next chapter changes her form." />
       <CharacterCarousel />
       <ElectricalChapter />
       <MusicChapter />
-      <MangaTransition title="Memory Gate" subtitle="Not every memory appears at once. Some have to be discovered." />
       <MemoryConstellation />
       <IceCrystalMemories />
       <LetterChapter />

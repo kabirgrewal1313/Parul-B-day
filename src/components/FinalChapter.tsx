@@ -19,21 +19,6 @@ export function FinalChapter() {
         </p>
         <p className="mt-2 text-xl text-white/70">Many adventures ahead.</p>
         <h2 className="mt-8 font-display text-7xl leading-none sm:text-9xl">Happy Birthday Parul</h2>
-        <div className="mt-10 flex flex-wrap gap-3 text-sm text-white/62">
-          {loading ? (
-            <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-xl">Loading...</span>
-          ) : friends.length === 0 ? (
-            <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-xl">
-              Waiting for the first memory
-            </span>
-          ) : (
-            friends.map((friend) => (
-              <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-xl" key={friend.name}>
-                {friend.name}
-              </span>
-            ))
-          )}
-        </div>
         <div className="mt-12 flex items-center gap-4 text-white/58">
           <span className="h-px flex-1 bg-gradient-to-r from-transparent via-white/36 to-white/10" />
           <p className="font-chapter text-[0.68rem] font-semibold uppercase tracking-[0.34em]">

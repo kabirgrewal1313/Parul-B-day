@@ -7,13 +7,13 @@ export function MusicChapter() {
     <section className="chapter overflow-hidden bg-gradient-to-b from-[#fffafd] via-[#edf6ff] to-[#f8fbff]">
       <div className="absolute right-[-3vw] top-16 giant-word">Music</div>
       <div className="chapter-inner grid items-center gap-10 lg:grid-cols-[1fr_1fr]">
-        <div className="reveal relative min-h-[660px] overflow-hidden border border-white/80 bg-white/38 shadow-crystal backdrop-blur-2xl">
+        <div className="reveal relative min-h-[420px] overflow-hidden border border-white/80 bg-white/38 shadow-crystal backdrop-blur-2xl sm:min-h-[560px] lg:min-h-[660px]">
           <Image
             alt="Parul music chapter portrait"
-            className="object-cover opacity-90"
+            className="object-contain opacity-95"
             fill
             sizes="(max-width: 900px) 100vw, 48vw"
-            src={heroImages.saree}
+            src={heroImages.mc}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbff] via-transparent to-white/25" />
           <div className="absolute left-8 top-8 grid h-16 w-16 place-items-center rounded-full bg-white text-ink shadow-glow">
@@ -34,14 +34,15 @@ export function MusicChapter() {
         </div>
         <div className="reveal">
           <p className="mb-4 text-sm uppercase text-ink/56">Music Chapter</p>
-          <h2 className="font-display text-6xl leading-none text-ink sm:text-8xl">The Room Becomes Softer</h2>
+          <h2 className="break-words font-display text-5xl leading-none text-ink sm:text-7xl lg:text-8xl">
+            Music Club has never been more chaotic than when she was in charge.
+          </h2>
           <p className="mt-8 text-lg leading-8 text-ink/70">
-            Concert light beams, piano keys, and floating notes frame the version of Parul who makes
-            noise feel like memory.
+            May the club have the power to recover from the chaos she left behind, and may the music never stop playing. JK, she was one of the best PORs ever. Fuck Sweety
           </p>
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            {["Soft piano", "Music club", "Light beams", "Visual rhythm"].map((item) => (
-              <div className="glass-panel p-5 font-display text-2xl" key={item}>
+            {["Keyboard", "Music club", "POR", "Inaug Debacles"].map((item) => (
+              <div className="glass-panel min-w-0 break-words p-5 font-display text-xl sm:text-2xl" key={item}>
                 {item}
               </div>
             ))}

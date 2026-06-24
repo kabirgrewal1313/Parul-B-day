@@ -68,7 +68,7 @@ export function HeroSplash() {
       <motion.div className="hero-splash__type-layer" style={{ x: typeX, y: typeY }}>
         <span className="hero-splash__word hero-splash__word--main">PARUL</span>
         <span className="hero-splash__word hero-splash__word--twenty">TWENTY ONE</span>
-        <span className="hero-splash__word hero-splash__word--chapter">WINTER STORY</span>
+        <span className="hero-splash__word hero-splash__word--chapter">THE BIRTHDAY STORY</span>
       </motion.div>
 
       <motion.div className="hero-splash__labels" style={{ y: foregroundY }}>
@@ -183,9 +183,9 @@ export function HeroSplash() {
       <motion.div className="hero-splash__foreground" style={{ y: foregroundY }} />
 
       <div className="hero-splash__caption">
-        <p className="hero-splash__kicker">Character Story 01</p>
-        <h1>Winter Story</h1>
-        <p>June 24 · a cinematic birthday chapter for Parul, twenty one, written in snowlight and music.</p>
+        <p className="hero-splash__kicker">Story Begins</p>
+        <h1>The Birthday Story</h1>
+        <p>June 24 · The fateful day our crazy, stupid, fun bro was born </p>
       </div>
     </section>
   );

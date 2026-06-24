@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-const lines = ["21 winters.", "21 seasons.", "Countless memories.", "June 24."];
+const lines = ["21 Years of Madness.", "21 Years of Joy.", "Countless memories.", "June 24."];
 
 export function IntroSequence() {
   return (
